@@ -10,7 +10,8 @@ module.exports = {
 	mode: 'production',
 	entry: {
 		'pdfmake': './src/browser-extensions/pdfMake.js',
-		'pdfmake.min': './src/browser-extensions/pdfMake.js'
+		'pdfmake.min': './src/browser-extensions/pdfMake.js',
+		'pdfkit': './src/browser-extensions/pdfkit.js',
 	},
 	output: {
 		path: path.join(__dirname, './build'),
@@ -19,7 +20,7 @@ module.exports = {
 		// Workaround https://github.com/webpack/webpack/issues/6642 until https://github.com/webpack/webpack/issues/6525 lands.
 		globalObject: `typeof self !== 'undefined' ? self : this`
 	},
-	target: ['web', 'es5'], // For Internet Explorer 11 support
+	target: ['web', 'es2023'],
 	resolve: {
 		alias: {
 			fs: path.join(__dirname, './src/browser-extensions/virtual-fs-cjs.js')
@@ -46,9 +47,7 @@ module.exports = {
 							[
 								"@babel/preset-env",
 								{
-									targets: {
-										"ie": "11"
-									},
+									targets: 'last 2 chrome versions',
 									modules: false,
 									useBuiltIns: 'usage',
 									// TODO: after fix in babel remove corejs version and remove core-js dependency in package.json
@@ -87,9 +86,7 @@ module.exports = {
 							[
 								"@babel/preset-env",
 								{
-									targets: {
-										"ie": "11"
-									},
+									targets: 'last 2 chrome versions',
 									modules: false,
 									useBuiltIns: 'usage',
 									// TODO: after fix in babel remove corejs version and remove core-js dependency in package.json
